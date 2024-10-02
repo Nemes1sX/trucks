@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreTruckRequest;
+use App\Http\Requests\UpdateTruckRequest;
+use App\Http\Resources\SingleTruckResource;
 use App\Http\Resources\TruckResource;
 use App\Interfaces\ITruckService;
 use App\Models\Truck;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class TruckController extends Controller
 {
@@ -38,32 +43,42 @@ class TruckController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTruckRequest $request)
     {
-        //
+        Truck::create($request->validated());
+
+        return response()->json([
+            'message' => 'Truck registered'
+        ], 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Truck $truck)
+    public function show(Truck $truck) : JsonResource
     {
-        //
+        return SingleTruckResource::make($truck);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Truck $truck)
+    public function update(UpdateTruckRequest $request, Truck $truck)
     {
-        //
+        $truck->update($request->validated());
+
+        return response()->json([
+            'message' => 'Truck registration data was updated'
+        ], 200);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Truck $truck)
+    public function destroy(Truck $truck) : JsonResponse
     {
-        //
+        $truck->delete();
+
+        return response()->json([], 204);
     }
 }

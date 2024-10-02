@@ -14,6 +14,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Truck::factory()->create(61);
+        Truck::factory()->count(61)->create();
     }
 }
