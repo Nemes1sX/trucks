@@ -15,7 +15,7 @@ return new class extends Migration
 
         Schema::create('trucks', function (Blueprint $table) use ($year) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->integer('year')->min(1900)->max($year + 5);
             $table->text('notes')->nullable();
             $table->timestamps();
