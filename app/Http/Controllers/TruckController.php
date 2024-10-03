@@ -45,10 +45,11 @@ class TruckController extends Controller
      */
     public function store(StoreTruckRequest $request)
     {
-        Truck::create($request->validated());
+        $truck = Truck::create($request->validated());
 
         return response()->json([
-            'message' => 'Truck registered'
+            'message' => 'Truck registered',
+            'data' => TruckResource::make($truck)
         ], 201);
     }
 
@@ -68,7 +69,8 @@ class TruckController extends Controller
         $truck->update($request->validated());
 
         return response()->json([
-            'message' => 'Truck registration data was updated'
+            'message' => 'Truck registration data was updated',
+            'data' => TruckResource::make($truck)
         ], 200);
     }
 
