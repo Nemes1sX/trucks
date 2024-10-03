@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('sub_units', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('main_truck');
+            $table->unsignedBigInteger('sub_unit');
             $table->foreign('main_truck')->references('id')->on('trucks');
             $table->foreign('sub_unit')->references('id')->on('trucks');
             $table->date('start_date');

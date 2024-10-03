@@ -28,7 +28,7 @@ class StoreSubUnitRequest extends FormRequest
 
         return [
             'main_truck' => ['required', 'integer', Rule::exists('trucks', 'id'), new MainTruckOverlapRule($this->start_date, $this->end_date)],
-            'sub_unit' => ['required', 'integer', Rule::exists('trucks', 'id'), 'different:main_truck', new SubUnitOverlapRule($this->start_date, $this->end_date0000)],
+            'sub_unit' => ['required', 'integer', Rule::exists('trucks', 'id'), 'different:main_truck', new SubUnitOverlapRule($this->start_date, $this->end_date)],
             'start_date' => ['required', 'date'],
             'end_date' => ['required', 'date']
         ];

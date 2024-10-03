@@ -23,9 +23,10 @@ class SubUnitOverlapRule implements ValidationRule
      */
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
+        //dd($this->startTime, $this->endTime);
         $mainTruckOverlaps = SubUnit::where('sub_unit', $value)
-            ->where('start_time', '<=', $this->endTime)
-            ->where('end_time', '>=', $this->startTime)
+            ->whereDate('start_date', '<=', $this->endTime)
+            ->whereDate('end_date', '>=', $this->startTime)
             ->count();
 
         if ($mainTruckOverlaps >= 1) {

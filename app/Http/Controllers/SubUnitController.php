@@ -5,15 +5,37 @@ namespace App\Http\Controllers;
 use App\Models\SubUnit;
 use App\Http\Requests\StoreSubUnitRequest;
 use App\Http\Requests\UpdateSubUnitRequest;
+use App\Http\Resources\SubUnitResource;
+use App\Interfaces\ISubUnitService;
+use Illuminate\Http\Request;
 
 class SubUnitController extends Controller
 {
+    private readonly ISubUnitService $subUnitService;
+
+    public function __construct(ISubUnitService $subUnitService)
+    {
+        $this->subUnitService = $subUnitService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $perPage = $request->get('per_page', 10);
+        $mainTruck = $request->get('main_truck');
+        $subUnit = $request->get('sub_unit');
+        $startDate = $request->get('start_year',  '');
+        $endDate = $request->get('end_year', '');
+
+        $subUnits = $this->subUnitService->getAllSubUnits($perPage, $mainTruck, $subUnit, $startDate, $endDate);
+
+        return response()->json([
+            'page' => $subUnits->currentPage(),
+            'data' => SubUnitResource::collection($subUnits),
+            'totalRecords' => $subUnits->total(),
+            'totalPages' => ceil($subUnits->total()/$perPage)
+        ], 200);
     }
 
     /**
@@ -32,22 +54,6 @@ class SubUnitController extends Controller
      * Display the specified resource.
      */
     public function show(SubUnit $subUnit)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(UpdateSubUnitRequest $request, SubUnit $subUnit)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(SubUnit $subUnit)
     {
         //
     }

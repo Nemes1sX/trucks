@@ -11,4 +11,14 @@ class SubUnit extends Model
     use HasFactory;
     
     protected $fillable = ['main_truck', 'sub_unit', 'start_date', 'end_date'];
+
+    public function mainTruck()
+    {
+        return $this->belongsTo(Truck::class, 'main_truck');
+    }
+
+    public function subUnit()
+    {
+        return $this->belongsTo(Truck::class, 'sub_unit');
+    }
 }
