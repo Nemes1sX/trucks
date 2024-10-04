@@ -32,7 +32,7 @@ class SubUnitOverlapRule implements ValidationRule
             ->count();
 
         if ($mainTruckOverlaps >= 1) {
-            $fail('Subunit already have been for main truck or subunit for selected period');
+            $fail('Subunit already have been for main truck or subunit for selected period.');
         }   
         
     }
