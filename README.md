@@ -10,3 +10,4 @@ PHP 8.2 or 8.3, recommended Laragon or other localhost alternatives (WAMP or XAM
 6. Run ```php artisan key:generate```
 7. Run ```php artisan migrate```. If you want test data run ```php artisan migrate --seed``` 
 8. Laragon users: just launch Laragon (projects are started for you by default). Other localhost providers you must run ```php artisan serve``` command to launch the server
+9. Run all tests with ```php artisan test```
