@@ -10,9 +10,7 @@ use App\Models\Truck;
 class TruckTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
+ 
     public function test_get_trucks(): void
     {
         $trucks = Truck::factory()->create();
@@ -55,7 +53,19 @@ class TruckTest extends TestCase
         $this->assertDatabaseHas('trucks', $request);     
     }
 
-    
+    public function test_post_truck_failed() : void
+    {    
+        $request = [
+            'name' => '',
+            'year' => null
+        ];
+
+        $response = $this->postJson("/api/trucks", $request);
+
+        $response->assertStatus(422)   
+                 ->assertJsonValidationErrors(['name', 'year']);
+    }
+
     public function test_update_truck_success() : void
     {    
         $truck = Truck::factory()->create();
