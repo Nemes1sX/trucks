@@ -23,7 +23,7 @@ class TruckController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse
     {
         $perPage = $request->get('per_page', 10);
         $name = $request->get('name', '');
@@ -43,7 +43,7 @@ class TruckController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTruckRequest $request)
+    public function store(StoreTruckRequest $request) : JsonResponse
     {
         $truck = Truck::create($request->validated());
 
@@ -64,7 +64,7 @@ class TruckController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTruckRequest $request, Truck $truck)
+    public function update(UpdateTruckRequest $request, Truck $truck) : JsonResponse
     {
         $truck->update($request->validated());
 

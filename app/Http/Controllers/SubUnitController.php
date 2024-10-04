@@ -7,7 +7,9 @@ use App\Http\Requests\StoreSubUnitRequest;
 use App\Http\Requests\UpdateSubUnitRequest;
 use App\Http\Resources\SubUnitResource;
 use App\Interfaces\ISubUnitService;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class SubUnitController extends Controller
 {
@@ -20,7 +22,7 @@ class SubUnitController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request) : JsonResponse
     {
         $perPage = $request->get('per_page', 10);
         $mainTruck = $request->get('main_truck');
@@ -41,7 +43,7 @@ class SubUnitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSubUnitRequest $request)
+    public function store(StoreSubUnitRequest $request) : JsonResponse
     {
         SubUnit::create($request->validated());
 
@@ -53,8 +55,8 @@ class SubUnitController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SubUnit $subUnit)
+    public function show(SubUnit $subUnit) : JsonResource
     {
-        //
+        return SubUnitResource::make($subUnit);   
     }
 }
