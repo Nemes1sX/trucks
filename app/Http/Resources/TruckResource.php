@@ -2,11 +2,17 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Truck;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TruckResource extends JsonResource
 {
+    public function __construct(Truck $resource)
+    {
+        parent::__construct($resource);
+        $this->resource = $resource;
+    }
     /**
      * Transform the resource into an array.
      *
@@ -15,11 +21,11 @@ class TruckResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'year' => $this->year,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
-        ]; 
+            'id' => $this->resource->id,
+            'name' => $this->resource->name,
+            'year' => $this->resource->year,
+            'created_at' => $this->resource->created_at->toDateTimeString(),
+            'updated_at' => $this->resource->updated_at->toDateTimeString(),
+        ];
     }
 }
